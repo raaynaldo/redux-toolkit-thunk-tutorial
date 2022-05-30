@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "id": "8ad244c6-e7ee-4e9a-9bba-7bb58befa5bc",
+      "text": "learn redux toolkit thunk"
+    },
+    {
+      "id": "dc875246-e968-4fae-a5c8-0e65036faca6",
+      "text": "write a new blog"
+    },
+    {
+      "id": "70259058-5c9b-4781-a2fe-e8c7f6e65d43",
+      "text": "explore redux toolkit query"
+    },
+    {
+      "id": "76094bc2-1cb8-4738-8856-fa41328da714",
+      "text": "finish CSS For Javascript Developers course"
+    },
+    {
+      "id": "b31ed626-3954-4b15-9a39-1b76dbff1909",
+      "text": "find a girl friend"
+    }
+  ]
+}
