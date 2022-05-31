@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTodo } from '../features/todos/todosSlice';
+import { addTodoAsync } from '../features/todos/todosSlice';
 
 export default function AddTodo() {
   const [text, setText] = useState('');
@@ -8,7 +8,7 @@ export default function AddTodo() {
 
   const addTodoHandler = (event) => {
     event.preventDefault();
-    dispatch(addTodo(text));
+    dispatch(addTodoAsync(text));
     setText('');
   };
 

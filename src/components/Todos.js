@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  fetchTodos,
+  fetchTodosAsync,
   getAllTodos,
   getTodosStatus,
 } from '../features/todos/todosSlice';
@@ -15,7 +15,7 @@ export default function Todos() {
   useEffect(() => {
     console.log({ todosStatus });
     if (todosStatus === 'idle') {
-      dispatch(fetchTodos({ message: 'test' }));
+      dispatch(fetchTodosAsync({ message: 'test' }));
     }
   }, [dispatch, todosStatus]);
 

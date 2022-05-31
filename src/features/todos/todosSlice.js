@@ -3,13 +3,38 @@ import { v4 as uuid } from 'uuid';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
-export const fetchTodos = createAsyncThunk(
+export const fetchTodosAsync = createAsyncThunk(
   'todos/fetchPosts',
   async (_, thunkAPI) => {
     const response = await fetch(`${baseUrl}/todos`);
     if (response.ok) {
       const todos = await response.json();
       return todos;
+    }
+
+    return thunkAPI.rejectWithValue(response.statusText);
+  }
+);
+
+export const addTodoAsync = createAsyncThunk(
+  'todos/addPost',
+  async (payload, thunkAPI) => {
+    const todo = {
+      id: uuid(),
+      text: payload,
+    };
+
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(todo),
+    };
+
+    const response = await fetch(`${baseUrl}/todos`, config);
+    if (response.ok) {
+      return todo;
     }
 
     return thunkAPI.rejectWithValue(response.statusText);
@@ -43,17 +68,32 @@ export const todosSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchTodos.pending]: (state) => {
+    [fetchTodosAsync.pending]: (state) => {
       console.log('loading');
       state.status = 'loading';
     },
-    [fetchTodos.fulfilled]: (state, action) => {
+    [fetchTodosAsync.fulfilled]: (state, action) => {
       console.log('succeeded');
       state.status = 'succeeded';
       state.todos = action.payload;
     },
-    [fetchTodos.rejected]: (state, action) => {
+    [fetchTodosAsync.rejected]: (state, action) => {
       console.log('error');
+      state.status = 'error';
+      state.error = action.payload;
+    },
+
+    [addTodoAsync.pending]: (state) => {
+      console.log('addTodoAsync loading');
+      state.status = 'loading';
+    },
+    [addTodoAsync.fulfilled]: (state, action) => {
+      console.log('addTodoAsync succeeded');
+      state.status = 'succeeded';
+      state.todos.push(action.payload);
+    },
+    [addTodoAsync.rejected]: (state, action) => {
+      console.log('addTodoAsync error');
       state.status = 'error';
       state.error = action.payload;
     },
